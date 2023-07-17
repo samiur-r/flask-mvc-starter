@@ -1,5 +1,5 @@
 from models.User import User
-from app import db
+from db import db
 
 class UserService:
     def create_user(self, name, email):
