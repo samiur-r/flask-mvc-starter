@@ -1,25 +1,14 @@
-# from flask import Flask
-# from flask_sqlalchemy import SQLAlchemy
-#
-# app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
-# db = SQLAlchemy(app)
-#
-# # Register the blueprints (routes)
-# from routes.user_routes import user_routes
-# app.register_blueprint(user_routes, url_prefix='/users')
-#
-# if __name__ == '__main__':
-#     app.run()
-
+import os
 from flask import Flask
-from config import db
-
+from db import db
 from routes.user_routes import user_routes
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
-# app.config.from_object('config')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 db.init_app(app)
 
 app.register_blueprint(user_routes, url_prefix='/user')
